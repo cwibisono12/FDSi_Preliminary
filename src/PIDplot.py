@@ -29,14 +29,14 @@ if __name__ == "__main__":
 				t3=0
 				
 				for i in range(0,sevtmult,1):
-					if temp[i].iddet == 241:
+					if temp[i].iddet == 353: #MSX 100
 						dE = dE+1
 						Energy=temp[i].energy
-					if temp[i].iddet == 234:
+					if temp[i].iddet == 240: #Image Scintillator Left
 						t1 = t1+1
 						t1time = temp[i].time + (temp[i].ctime/16384)
 						Eleft=temp[i].energy
-					if temp[i].iddet == 248:
+					if temp[i].iddet == 231: #Cross Scintillaotr B2
 						t2 = t2+1
 						t2time = temp[i].time + (temp[i].ctime/16384)
 				if (t1 >= 1) and t2 >= 1 and dE >= 1:
