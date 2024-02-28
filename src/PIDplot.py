@@ -37,9 +37,9 @@ if __name__ == "__main__":
 						temptime=temp[i].ctimef
 						t1time = temp[i].time + (temp[i].ctime/16384)
 						if temptime == 1:
-							t1time = t1time*4
-						else:
 							t1time = t1time*8
+						else:
+							t1time = t1time*4
 							
 						Eleft=temp[i].energy
 					if temp[i].iddet == 232: #Cross Scintillaotr B2
@@ -47,9 +47,9 @@ if __name__ == "__main__":
 						temptime = temp[i].ctimef
 						t2time = temp[i].time + (temp[i].ctime/16384)
 						if temptime == 1:
-							t2time = t2time*4
-						else:
 							t2time = t2time*8
+						else:
+							t2time = t2time*4
 
 				if (t1 >= 1) and t2 >= 1 and dE >= 1:
 					deltatime=(t1time-t2time)
