@@ -32,18 +32,31 @@ if __name__ == "__main__":
 					if temp[i].iddet == 353: #MSX 100
 						dE = dE+1
 						Energy=temp[i].energy
-					if temp[i].iddet == 240: #Image Scintillator Left
+					if temp[i].iddet == 245: #Image Scintillator Left
 						t1 = t1+1
+						temptime=temp[i].ctimef
 						t1time = temp[i].time + (temp[i].ctime/16384)
+						if temptime == 1:
+							t1time = t1time*4
+						else:
+							t1time = t1time*8
+							
 						Eleft=temp[i].energy
-					if temp[i].iddet == 231: #Cross Scintillaotr B2
+					if temp[i].iddet == 232: #Cross Scintillaotr B2
 						t2 = t2+1
+						temptime = temp[i].ctimef
 						t2time = temp[i].time + (temp[i].ctime/16384)
+						if temptime == 1:
+							t1time = t1time*4
+						else:
+							t1time = t1time*8
+
 				if (t1 >= 1) and t2 >= 1 and dE >= 1:
-					if t1time > t2time:
-						deltatime=((t1time-t2time)*4)
-					else:
-						deltatime=((t2time-t1time)*4)
+					deltatime=(t1time-t2time)
+					#if t1time > t2time:
+					#	deltatime=((t1time-t2time)*4)
+					#else:
+					#	deltatime=((t2time-t1time)*4)
 					
 					deltatime=(deltatime)*10-2000
 					print("sevtmult:",sevtmult,"iddet:",temp[i].iddet,"t1time:",t1time,"t2time:",t2time,"tdiff:",deltatime,"energy:",Energy,"Eleft:",Eleft)

@@ -239,14 +239,15 @@ def nsclpxi16evread(fpr):
 		buff3int,=q.unpack(buff3)
 		time=((buff3int & 0xFFFF) << 32) + buff2int			
 		#ctime=(buff3int & 0x7FFF0000) >> 16
-		cfd_forced=buff3int >> 16 & 0X8000
-		cfd_source=buff3int >> 16 & 0x4000
-		cfdtimetemp = buff3int >> 16 & 0x3FFF
+		cfd_forced= (buff3int & 0x80000000) >> 31
+		cfd_source= (buff3int & 0x40000000) >> 30
+		cfdtimetemp = (buff3int & 0x3FFF0000) >> 16
+		cfdtimetemp2 = cfdtimetemp & 0x3FFF
 		if cfd_forced == 0:
 			if cfd_source == 1:
-				ctime=(cfdtimetemp -16384*1)/2
+				ctime=(cfdtimetemp2- 16384*1)/2
 			else:
-				ctime=(cfdtimetemp - 0)/2
+				ctime=(cfdtimetemp2 - 0)/2
 		else:
 			ctime = 0
 		

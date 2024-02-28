@@ -375,4 +375,4 @@ if __name__ == "__main__":
 	'''
 	import sys
 	filename=sys.argv[1]
-	pxi16file(filename)
+	nsclpxi16file(filename)

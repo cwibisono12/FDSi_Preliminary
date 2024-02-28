@@ -45,7 +45,12 @@ if __name__ == "__main__":
 				enal2=[]
 				enal3=[]
 				enal4=[]
-				
+				'''
+				xions=0
+				yions=0
+				xbeta=0
+				ybeta=0
+				'''
 				for i in range(0,sevtmult,1):
 					if temp[i].iddet >=212 and temp[i].iddet <=219:
 						if temp[i].iddet == 212:
@@ -93,27 +98,27 @@ if __name__ == "__main__":
 						xbeta=(maxenah4+maxenah3)/sumah
 						ybeta=(maxenah2+maxenah3)/sumah
 
-					if xions > 0 and xions <1 and yions>0 and yions <1:
-						flag=flag+2
-					if xbeta > 0 and xbeta <1 and ybeta >0 and ybeta <1:
-						flag=flag+4
+						if xions > 0 and xions <1 and yions>0 and yions <1:
+							flag=flag+2
+						if xbeta > 0 and xbeta <1 and ybeta >0 and ybeta <1:
+							flag=flag+4
 
-					if flag & 1 == 0:
-						print("xions:",xions,"yions:",yions)
-						print("xbeta:",xbeta,"ybeta:",ybeta)
+						if flag & 1 == 0:
+							print("xions:",xions,"yions:",yions)
+							print("xbeta:",xbeta,"ybeta:",ybeta)
 					
-					xions=int(xions*1000)
-					yions=int(yions*1000)
-					xbeta=int(xbeta*1000)
-					ybeta=int(ybeta*1000)
-					if xions >= 0 and xions <999 and yions >= 0 and yions <999:
-						ImplantIons[yions][xions]=ImplantIons[yions][xions]+1
-					if xbeta >= 0 and xbeta < 999 and ybeta >=0 and ybeta < 999:
-						ImplantBeta[ybeta][xbeta]=ImplantBeta[ybeta][xbeta]+1
-					if xions >=0 and xions < 999 and xbeta >=0 and xbeta < 999:
-						ImplantX[xions][xbeta]=ImplantX[xions][xbeta]+1
-					if yions >=0 and yions < 999 and ybeta >=0 and ybeta < 999:
-						ImplantY[yions][ybeta]=ImplantY[yions][ybeta]+1
+							xions=int(xions*1000)
+							yions=int(yions*1000)
+							xbeta=int(xbeta*1000)
+							ybeta=int(ybeta*1000)
+							if xions >= 0 and xions <999 and yions >= 0 and yions <999:
+								ImplantIons[yions][xions]=ImplantIons[yions][xions]+1
+							if xbeta >= 0 and xbeta < 999 and ybeta >=0 and ybeta < 999:
+								ImplantBeta[ybeta][xbeta]=ImplantBeta[ybeta][xbeta]+1
+							if xions >=0 and xions < 999 and xbeta >=0 and xbeta < 999:
+								ImplantX[xions][xbeta]=ImplantX[xions][xbeta]+1
+							if yions >=0 and yions < 999 and ybeta >=0 and ybeta < 999:
+								ImplantY[yions][ybeta]=ImplantY[yions][ybeta]+1
 
 					
 	matwrite(matfilename1,dimy=1000,dimx=1000,arr=ImplantIons,overwrite=overwrite)
