@@ -40,10 +40,13 @@ def PID(pxi16obj):
 			else:
 				t2time = t2time*4
 
-			if (t1 >= 1) and t2 >= 1 and dE >= 1:
-				deltatime=(t1time-t2time)
+	if (t1 >= 1) and t2 >= 1 and dE >= 1:
+		deltatime=(t1time-t2time)
 				
-				deltatime=(deltatime)*10 - 2000
-				print("sevtmult:",sevtmult,"iddet:",pxi16obj[i].iddet,"t1time:",t1time,"t2time:",t2time,"tdiff:",deltatime,"energy:",Energy,"Eleft:",Eleft)
+		deltatime=(deltatime)*10 - 2000
+		print("sevtmult:",sevtmult,"iddet:",pxi16obj[i].iddet,"t1time:",t1time,"t2time:",t2time,"tdiff:",deltatime,"energy:",Energy,"Eleft:",Eleft)
 			
-	return Energy, TOF
+		return Energy, deltatime
+
+	else:
+		return "Not Found"

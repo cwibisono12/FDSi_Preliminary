@@ -30,7 +30,7 @@ def YSO(pxi16obj):
 				
 
 	for i in range(0,sevtmult,1):
-		if pxi16obj[i].iddet >=212 and temp[i].iddet <=219:
+		if pxi16obj[i].iddet >=212 and pxi16obj[i].iddet <=219:
 			
 			if pxi16obj[i].iddet == 212:
 				ah1=ah1+1
@@ -104,4 +104,8 @@ def YSO(pxi16obj):
 							
 				position=[[xions,yions],[xbeta,ybeta]]
 	
-	return position					
+				return position		
+		else:
+			return "Not Found"
+	else:
+		return "Not Found"			
