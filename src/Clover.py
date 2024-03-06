@@ -106,7 +106,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl1en))
 			if realen >= 0 and realen < 8192:
 				Cl['1']=realen
-				print("Cl1:",realen)	
+				#print("Cl1:",realen)	
 	
 	if Cl2 >= 1:
 		n=len(Cl2en)
@@ -114,7 +114,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl2en))
 			if realen >= 0 and realen < 8192:
 				Cl['2']=realen
-				print("Cl2:",realen)
+				#print("Cl2:",realen)
 
 	if Cl3 >= 1:
 		n=len(Cl3en)
@@ -122,7 +122,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl3en))
 			if realen >= 0 and realen < 8192:
 				Cl['3']=realen
-				print("Cl3:",realen)	
+				#print("Cl3:",realen)	
 	
 	if Cl5 >= 1:
 		n=len(Cl5en)
@@ -130,7 +130,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl5en))
 			if realen >= 0 and realen < 8192:
 				Cl['5']=realen
-				print("Cl5:",realen)	
+				#print("Cl5:",realen)	
 
 	if Cl6 >= 1:
 		n=len(Cl6en)
@@ -138,7 +138,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl6en))
 			if realen >= 0 and realen < 8192:
 				Cl['6']=realen
-				print("Cl6:",realen)	
+				#print("Cl6:",realen)	
 	
 	if Cl7 >= 1:
 		n=len(Cl7en)
@@ -146,7 +146,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl7en))
 			if realen >= 0 and realen < 8192:
 				Cl['7']=realen
-				print("Cl6:",realen)	
+				#print("Cl6:",realen)	
 
 	if Cl9 >= 1:
 		n=len(Cl9en)
@@ -154,7 +154,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl9en))
 			if realen >= 0 and realen < 8192:
 				Cl['9']=realen
-				print("Cl9:",realen)	
+				#print("Cl9:",realen)	
 
 				
 	if Cl10 >= 1:
@@ -163,7 +163,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl10en))
 			if realen >= 0 and realen < 8192:
 				Cl['10']=realen
-				print("Cl10:",realen)	
+				#print("Cl10:",realen)	
 
 	if Cl11 >= 1:
 		n=len(Cl11en)
@@ -171,7 +171,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl11en))
 			if realen >= 0 and realen < 8192:
 				Cl['11']=realen
-				print("Cl11:",realen)
+				#print("Cl11:",realen)
 
 	if Cl12 >= 1:
 		n=len(Cl12en)
@@ -179,7 +179,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl12en))
 			if realen >= 0 and realen < 8192:
 				Cl['12']=realen
-				print("Cl12:",realen)	
+				#print("Cl12:",realen)	
 			
 	if Cl13 >= 1:
 		n=len(Cl13en)
@@ -187,7 +187,7 @@ def Clover(filecalib, pxi16obj):
 			realen=int(sum(Cl13en))
 			if realen >= 0 and realen < 8192:
 				Cl['13']=realen
-				print("Cl13:",realen)	
+				#print("Cl13:",realen)	
 
 	return Cl	
 

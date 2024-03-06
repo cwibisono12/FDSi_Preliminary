@@ -26,8 +26,13 @@ def bancut(x,y,X,Y,n):
 
 if __name__ == "__main__":
 	import sys
-	X=[1.0,4.0,4.0,1.0,1.0]
-	Y=[1.0,1.0,4.0,4.0,1.0]
-	x=float(sys.argv[1])
-	y=float(sys.argv[2])
-	print("result:",bancut(x,y,X,Y,5))	
+	from readcutfile import readcutfile as read
+	cutfile = sys.argv[1]
+	Implant = read(cutfile)
+	#X=[1.0,4.0,4.0,1.0,1.0]
+	#Y=[1.0,1.0,4.0,4.0,1.0]
+	x=float(sys.argv[2])
+	y=float(sys.argv[3])
+	#print("result:",bancut(x,y,X,Y,5))	
+	n = len(Implant['41P'][0])
+	print("41P",bancut(x,y,Implant['41P'][0],Implant['41P'][1],n))
