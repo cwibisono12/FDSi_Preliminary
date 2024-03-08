@@ -1,8 +1,27 @@
 #!/usr/bin/env python3
 from struct import *
+from dataclasses import dataclass
 
+@dataclass
+class imevent:
+	imflag: int
+	imID: int
+	dE: int
+	TOF: int
+	x: int
+	y: int
+	imtime: int
+	
 
-def imwrite(fpr, implant):
+@dataclass
+class betaevent:
+	betaflag: int
+	x: int
+	y: int
+	betatime: int
+	gmult: int
+
+def imwrite(fpr, implant, impID):
 	'''
 	Function to write implant event into a file
 	C. Wibisono
@@ -10,8 +29,10 @@ def imwrite(fpr, implant):
 	'''
 	p=Struct("@i")
 	q=Struct("@Q")
-	imflag=Struct("@h")
-	fpr.write(imflag.pack(1)) #identifier for implant
+	imflag=Struct("@B")
+	imid=Struct("@H")
+	fpr.write(imflag.pack(1)) #identifier for implant event
+	fpr.write(imid.pack(impID))
 	fpr.write(p.pack(int(implant[0]))) #delta E
 	fpr.write(p.pack(int(implant[1]))) #TOF
 	fpr.write(p.pack(int(implant[2][0]*1000))) #x position
@@ -28,15 +49,19 @@ def imread(fpr):
 	'''
 	p=Struct("@i")
 	q=Struct("@Q")
-	imflag=Struct("@h")
-	flagim,=imflag.unpack(fpr.read(2))
+	r=Struct("@H")
+	imflag=Struct("@B")
+	flagim,=imflag.unpack(fpr.read(1))
+	impid,=r.unpack(fpr.read(2))
 	dE,=p.unpack(fpr.read(4))
 	TOF,=p.unpack(fpr.read(4))
 	xpos,=p.unpack(fpr.read(4))
 	ypos,=p.unpack(fpr.read(4))
 	imtime,=q.unpack(fpr.read(8))	
-	print("implant---","energy:",dE,"TOF:",TOF,"( x, y):",xpos,ypos,"imtime",imtime)
-
+	#print("implant---",impid,"energy:",dE,"TOF:",TOF,"( x, y):",xpos,ypos,"imtime",imtime)
+	temp = imevent(flagim, impid, dE, TOF, xpos, ypos, imtime)
+	return temp
+	
 def betaread(fpr):
 	'''
 	Function to read beta event into a file
@@ -46,19 +71,27 @@ def betaread(fpr):
 	p=Struct("@i")
 	q=Struct("@Q")
 	r=Struct("@h")
-	betaflag=Struct("@h")
-	flagbeta,=betaflag.unpack(fpr.read(2))
+	betaflag=Struct("@B")
+	flagbeta,=betaflag.unpack(fpr.read(1))
 	xpos,=p.unpack(fpr.read(4))
 	ypos,=p.unpack(fpr.read(4))
 	betatime,=q.unpack(fpr.read(8))
-	gmult,=r.unpack(fpr.read(2))
+	gmult,=betaflag.unpack(fpr.read(1))
 	
-	
+	gammas={}
 	for i in range(gmult):
-		fpr.read(2)
-		fpr.read(4)
+		gamid, =betaflag.unpack(fpr.read(1))
+		gamenergy, =p.unpack(fpr.read(4))
+		gammas[str(gamid)] = gamenergy
 
-	print("decay---","(x,y):",xpos,ypos,"betatime:",betatime,"gmult:",gmult)
+	#print("decay---","(x,y):",xpos,ypos,"betatime:",betatime,"gmult:",gmult)
+	temp = betaevent(flagbeta, xpos, ypos, betatime, gmult)
+	#if gmult == 0:
+	#	return temp
+	#else:
+	#	arr = [temp, gammas]
+	#	return arr
+	return temp	
 
 def betawrite(fpr, beta, Clover):
 	'''
@@ -68,8 +101,7 @@ def betawrite(fpr, beta, Clover):
 	'''
 	p=Struct("@i")
 	q=Struct("@Q")
-	r=Struct("@h")
-	betaflag=Struct("@h")
+	betaflag=Struct("@B")
 	fpr.write(betaflag.pack(2)) #identifier for beta
 	fpr.write(p.pack(int(beta[0][0]*1000))) #x position
 	fpr.write(p.pack(int(beta[0][1]*1000))) #y position
@@ -80,8 +112,8 @@ def betawrite(fpr, beta, Clover):
 		idClover.append(i)
 		energy.append(j)
 	gmult=len(energy)
-	fpr.write(r.pack(gmult)) #germanium multiplicity
+	fpr.write(betaflag.pack(gmult)) #germanium multiplicity
 	for i in range(gmult):
-		fpr.write(r.pack(int(idClover[i]))) #Clover ID
+		fpr.write(betaflag.pack(int(idClover[i]))) #Clover ID
 		fpr.write(p.pack(int(energy[i]))) #Energy
 
