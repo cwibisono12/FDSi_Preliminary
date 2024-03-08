@@ -20,6 +20,7 @@ def Implant(pxi16obj):
 	al2 = 0
 	al3 = 0
 	al4 = 0
+	fdynode = 0
 	enal1 = []
 	enal2 = []
 	enal3 = []
@@ -98,9 +99,11 @@ def Implant(pxi16obj):
 					tl4time = tl4time * 4
 				enal4.append(pxi16obj[i].energy)
 				tl4.append(tl4time)
-			
+		
+		if pxi16obj[i].iddet == 209: #low gain dynode
+			fdynode = 1		
 
-	if (t1 >= 1) and t2 >= 1 and dE >= 1 and (al1 >= 1 and al2 >= 1 and al3 >= 1 and al4 >= 1):
+	if (t1 >= 1) and t2 >= 1 and dE >= 1 and (al1 >= 1 and al2 >= 1 and al3 >= 1 and al4 >= 1) and fdynode == 1:
 		deltatime=(t1time-t2time)
 				
 		deltatime=(deltatime)*10 - 2000

@@ -21,6 +21,8 @@ def Decay(pxi16obj):
 	ah2 = 0
 	ah3 = 0
 	ah4 = 0
+	fvetofront = 0
+	fvetorear = 0
 	enah1 = []
 	enah2 = []
 	enah3 = []
@@ -99,9 +101,14 @@ def Decay(pxi16obj):
 					th4time = th4time * 4
 				enah4.append(pxi16obj[i].energy)
 				timeah4.append(th4time)
-			
+		
+		if pxi16obj[i].iddet == 229: #front veto
+			fvetofront = 1
+		
+		if pxi16obj[i].iddet == 230: #rear veto
+			fvetorear = 1
 
-	if (t1 == 0) and t2 == 0 and dE == 0 and (ah1 >= 1 and ah2 >= 1 and ah3 >= 1 and ah4 >= 1):
+	if (t1 == 0) and t2 == 0 and dE == 0 and (ah1 >= 1 and ah2 >= 1 and ah3 >= 1 and ah4 >= 1) and (fvetofront == 1 or fvetorear == 1):
 		#deltatime=(t1time-t2time)
 				
 		#deltatime=(deltatime)*10 - 2000
