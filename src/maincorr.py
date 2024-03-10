@@ -70,7 +70,8 @@ if __name__ == "__main__":
 				
 					if flag41P == 1:
 						print("41P")
-						im(filecorr,result,4115)	
+						Ge1 = Clover(filecalib, temp)
+						im(filecorr,result,4115,Ge1)	
 						#Ge1 = Clover(filecalib, temp)					
 						#for i, j in Ge1.items():
 						#	Clover41P[int(i)][j] = Clover41P[int(i)][j] + 1
@@ -78,7 +79,8 @@ if __name__ == "__main__":
 					
 					if flag42P == 1:
 						print("42P")
-						im(filecorr,result,4215)
+						Ge2 = Clover(filecalib, temp) 
+						im(filecorr,result,4215,Ge2)
 						#Ge2 = Clover(filecalib, temp)					
 						#for i, j in Ge2.items():
 						#	Clover42P[int(i)][j] = Clover42P[int(i)][j] + 1
@@ -86,14 +88,16 @@ if __name__ == "__main__":
 
 					if flag43P == 1:
 						print("43P")
-						im(filecorr,result,4315)
+						Ge3 = Clover(filecalib, temp)
+						im(filecorr,result,4315,Ge3)
 						#Ge3 = Clover(filecalib, temp)					
 						#for i, j in Ge3.items():
 						#	Clover43P[int(i)][j] = Clover43P[int(i)][j] + 1
 
 					if flag44P == 1:
 						print("44P")
-						im(filecorr,result,4415)
+						Ge4 = Clover(filecalib, temp)
+						im(filecorr,result,4415,Ge4)
 						
 						#Ge4 = Clover(filecalib, temp)					
 						#for i, j in Ge4.items():

@@ -2,6 +2,7 @@
 from struct import *
 from dataclasses import dataclass
 
+'''
 @dataclass
 class imevent:
 	imflag: int
@@ -11,7 +12,7 @@ class imevent:
 	x: int
 	y: int
 	imtime: int
-	
+	gmult: int	
 
 @dataclass
 class betaevent:
@@ -21,7 +22,9 @@ class betaevent:
 	betatime: int
 	gmult: int
 
-def imwrite(fpr, implant, impID):
+'''
+
+def imwrite(fpr, implant, impID, Clover):
 	'''
 	Function to write implant event into a file
 	C. Wibisono
@@ -38,12 +41,20 @@ def imwrite(fpr, implant, impID):
 	fpr.write(p.pack(int(implant[2][0]*1000))) #x position
 	fpr.write(p.pack(int(implant[2][1]*1000))) #y position
 	fpr.write(q.pack(int(implant[3]))) #time
-
-
+	idClover = []
+	energy = []
+	for i, j in Clover.items():
+		idClover.append(i)
+		energy.append(j)
+	gmult = len(energy)
+	fpr.write(imflag.pack(gmult))
+	for k in range(gmult):
+		fpr.write(imflag.pack(int(idClover[k])))
+		fpr.write(p.pack(energy[k]))
 
 def imread(fpr):
 	'''
-	Function to write implant event into a file
+	Function to read implant event into a file
 	C. Wibisono
 	03/07 '24 
 	'''
@@ -57,10 +68,17 @@ def imread(fpr):
 	TOF,=p.unpack(fpr.read(4))
 	xpos,=p.unpack(fpr.read(4))
 	ypos,=p.unpack(fpr.read(4))
-	imtime,=q.unpack(fpr.read(8))	
+	imtime,=q.unpack(fpr.read(8))
+	gmult,=imflag.unpack(fpr.read(1))
+	gammas = {}
+	for i in range(gmult):
+		gamid, = imflag.unpack(fpr.read(1))
+		gamen, = p.unpack(fpr.read(4))
+		gammas[str(gamid)] = gamen	
 	#print("implant---",impid,"energy:",dE,"TOF:",TOF,"( x, y):",xpos,ypos,"imtime",imtime)
-	temp = imevent(flagim, impid, dE, TOF, xpos, ypos, imtime)
-	return temp
+	imarr = [flagim, impid, dE, TOF, xpos, ypos, imtime, gmult]
+	#temp = imevent(flagim, impid, dE, TOF, xpos, ypos, imtime)
+	return imarr, gammas
 	
 def betaread(fpr):
 	'''

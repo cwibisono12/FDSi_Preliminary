@@ -37,16 +37,18 @@ def buildcorr(fcorr, *, timecorr = 150000000):
 		fcorr.seek(-1,1)
 		timeref = 0
 		flagbeta = 0
-		gmult = 0
+		gmultbeta = 0
+		gmultim = 0
 		
 		if flag == 1: #implant event
-			temp = imread(fcorr)
-			timeref = temp.imtime
+			temp, ge = imread(fcorr)
+			timeref = temp[6]
+			gmultim = temp[7]
 			
 		else: #beta event
 			temp, ge = betaread(fcorr)
 			timeref = temp[3]
-			gmult = temp[4]
+			gmultbeta = temp[4]
 			flagbeta = 1
 
 		if corrtime == -1:
@@ -56,35 +58,41 @@ def buildcorr(fcorr, *, timecorr = 150000000):
 		else:
 			tdiff = timeref - corrtime
 			n = n + 1
+
 		if tdiff > timecorr:
 			if flagbeta == 0:
-				fcorr.seek(-27,1)
+				if gmultim == 0:
+					fcorr.seek(-28,1)
+				else:
+					fcorr.seek(-28-(5*gmultim),1)
 				break
+
 			else:			
-				if gmult == 0:
+				if gmultbeta == 0:
 					fcorr.seek(-18,1)
 				else:
-					fcorr.seek(-18-(5*gmult),1)
+					fcorr.seek(-18-(5*gmultbeta),1)
 
 				break
 	
 		if flag == 1:
-			implantflag = temp.imflag
-			imID = temp.imID
-			dE = temp.dE
-			TOF = temp.TOF
-			xpos = temp.x
-			ypos = temp.y
-			timeimplant = temp.imtime
-			arr = [implantflag, imID, dE, TOF, xpos, ypos, timeimplant]	
+			implantflag = temp[0]
+			imID = temp[1]
+			dE = temp[2]
+			TOF = temp[3]
+			xpos = temp[4]
+			ypos = temp[5]
+			timeimplant = temp[6]
+			gmultim = temp[7]
+			arr = [implantflag, imID, dE, TOF, xpos, ypos, timeimplant, gmultim, ge]	
 			corrobj.append(arr)
 		else:
 			flagbeta = temp[0]
 			xpos = temp[1]
 			ypos = temp[2]
 			betatime = temp[3]
-			gmult = temp[4]
-			arr = [flagbeta, xpos, ypos, betatime, gmult, ge]
+			gmultbeta = temp[4]
+			arr = [flagbeta, xpos, ypos, betatime, gmultbeta, ge]
 			corrobj.append(arr)
 	
 	
@@ -106,7 +114,7 @@ if __name__ == "__main__":
 				for i in range(mult):
 					if result[i][0] == 1: #imevent
 						implants = implants + 1
-						print("mult:", mult, "implant:", result[i][1], "(x,y):", result[i][4], result[i][5], "imtime:", result[i][6])
+						print("mult:", mult, "implant:", result[i][1], "(x,y):", result[i][4], result[i][5], "imtime:", result[i][6],"gmult:",result[i][7])
 					else:
 						betas = betas + 1
 						print("mult:" ,mult, "betastime:", result[i][3], "(x, y):", result[i][1],result[i][2],"gmult:", result[i][4])					

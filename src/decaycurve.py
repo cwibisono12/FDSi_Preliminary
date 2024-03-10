@@ -6,8 +6,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def decaycurve(filecorr, *, timebuild = 150000000, radius = 500):
+
+	'''
+	Function to generate decay curve, gamma spectrum associated with beta events,
+	and gamma spectum asscociated with implant events.
+	C. Wibisono
+	03/10 '24
+	Function Argument(s):
+	filecorr: correlation file object
+	timebuild: correlation timing window
+	radius: radius between implant and beta
+	Return(s):
+	decayhist: int[4][300] decay matrix
+	decayen: int[4][8192] gamma energy matrix associated with betas
+	isomeren: int[4][8192] gamma energy matrix associated with implants			
+	'''
+
 	decayhist = np.ndarray(shape=(4,300),dtype=np.int32)
 	decayen = np.ndarray(shape=(4,8192),dtype=np.int32)
+	isomeren = np.ndarray(shape=(4,8192),dtype=np.int32)
 
 	for i in range(0,4,1):
 		for j in range(0,300,1):
@@ -16,6 +33,8 @@ def decaycurve(filecorr, *, timebuild = 150000000, radius = 500):
 	for i in range(0,4,1):
 		for j in range(0,8192,1):
 			decayen[i][j] = 0
+			isomeren[i][j] = 0
+
 	'''
 	x=np.arange(0,300,1)
 	y41P=np.zeros(300)
@@ -46,17 +65,25 @@ def decaycurve(filecorr, *, timebuild = 150000000, radius = 500):
 					
 					if result[i][0] == 1: #implant event:
 						if result[i][1] == 4115:
-							flag41P = flag41P + 1		
+							flag41P = flag41P + 1
 							P41.append([result[i][4],result[i][5],result[i][6]]) #[x,y,t]
+							for p, q in result[i][8].items():
+								isomeren[0][q] = isomeren[0][q] + 1	
 						if result[i][1] == 4215:
 							flag42P = flag42P + 1
 							P42.append([result[i][4],result[i][5],result[i][6]])
+							for p, q in result[i][8].items():
+								isomeren[1][q] = isomeren[1][q] + 1	
 						if result[i][1] == 4315:
 							flag43P = flag43P + 1
 							P43.append([result[i][4],result[i][5],result[i][6]])
+							for p, q in result[i][8].items():
+								isomeren[2][q] = isomeren[2][q] + 1	
 						if result[i][1] == 4415:
 							flag44P = flag44P + 1
 							P44.append([result[i][4],result[i][5],result[i][6]])
+							for p, q in result[i][8].items():
+								isomeren[3][q] = isomeren[3][q] + 1	
 						
 
 					else: #betaevents
@@ -181,7 +208,7 @@ def decaycurve(filecorr, *, timebuild = 150000000, radius = 500):
 	
 				'''
 
-	return decayhist, decayen
+	return decayhist, decayen, isomeren
 	'''
 	#matwrite(filemat, dimy = 5, dimx = 300, arr=decayhist, overwrite = 1)
 	fig,ax=plt.subplots(2,2)
@@ -222,10 +249,12 @@ if __name__ == "__main__":
 	filecorrelation = sys.argv[1]
 	decaymat = sys.argv[2]
 	decayen = sys.argv[3]
-	timewindow = int(sys.argv[4])
-	radiusbetaim = int(sys.argv[5])
-	overwrite = int(sys.argv[6])
+	isomeren = sys.argv[4]
+	timewindow = int(sys.argv[5])
+	radiusbetaim = int(sys.argv[6])
+	overwrite = int(sys.argv[7])
 
-	hist_t, hist_e = decaycurve(filecorrelation, timebuild = timewindow, radius = radiusbetaim)
+	hist_t, hist_e, hist_isomer = decaycurve(filecorrelation, timebuild = timewindow, radius = radiusbetaim)
 	matwrite(decaymat, dimy = 4, dimx = 300, arr=hist_t, overwrite = overwrite)												
 	matwrite(decayen, dimy = 4, dimx = 8192, arr=hist_e, overwrite = overwrite)												
+	matwrite(isomeren, dimy = 4, dimx = 8192, arr=hist_isomer, overwrite = overwrite)												

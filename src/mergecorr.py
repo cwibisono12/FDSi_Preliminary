@@ -25,14 +25,22 @@ def mergecorr(fin, fout):
 				fr.seek(-1,1)
 				flag, = imflag.unpack(buff)
 				if flag == 1:
-					temp = im(fr)
-					fw.write(imflag.pack(1))
-					fw.write(imid.pack(temp.imID))
-					fw.write(p.pack(temp.dE))
-					fw.write(p.pack(temp.TOF))
-					fw.write(p.pack(temp.x))
-					fw.write(p.pack(temp.y))
-					fw.write(q.pack(temp.imtime))
+					temp, Ge = im(fr)
+					#flagimevent, =imflag.unpack(fr.read(1))
+					fw.write(imflag.pack(temp[0]))
+					fw.write(imid.pack(temp[1]))
+					fw.write(p.pack(temp[2]))
+					fw.write(p.pack(temp[3]))
+					fw.write(p.pack(temp[4]))
+					fw.write(p.pack(temp[5]))
+					fw.write(q.pack(temp[6]))
+					fw.write(imflag.pack(temp[7]))
+					gmult = temp[7]
+					if gmult > 0:
+						for i,j in Ge.items():
+							fw.write(imflag.pack(int(i)))
+							fw.write(p.pack(j))
+			
 				else:
 					flagbetaevent, = betaflag.unpack(fr.read(1))
 					fw.write(betaflag.pack(flagbetaevent))
