@@ -44,9 +44,9 @@ def buildcorr(fcorr, *, timecorr = 150000000):
 			timeref = temp.imtime
 			
 		else: #beta event
-			temp = betaread(fcorr)
-			timeref = temp.betatime
-			gmult = temp.gmult
+			temp, ge = betaread(fcorr)
+			timeref = temp[3]
+			gmult = temp[4]
 			flagbeta = 1
 
 		if corrtime == -1:
@@ -79,12 +79,12 @@ def buildcorr(fcorr, *, timecorr = 150000000):
 			arr = [implantflag, imID, dE, TOF, xpos, ypos, timeimplant]	
 			corrobj.append(arr)
 		else:
-			flagbeta = temp.betaflag
-			xpos = temp.x
-			ypos = temp.y
-			betatime = temp.betatime
-			gmult = temp.gmult
-			arr = [flagbeta, xpos, ypos, betatime, gmult]
+			flagbeta = temp[0]
+			xpos = temp[1]
+			ypos = temp[2]
+			betatime = temp[3]
+			gmult = temp[4]
+			arr = [flagbeta, xpos, ypos, betatime, gmult, ge]
 			corrobj.append(arr)
 	
 	

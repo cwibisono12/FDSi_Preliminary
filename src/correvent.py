@@ -85,13 +85,15 @@ def betaread(fpr):
 		gammas[str(gamid)] = gamenergy
 
 	#print("decay---","(x,y):",xpos,ypos,"betatime:",betatime,"gmult:",gmult)
-	temp = betaevent(flagbeta, xpos, ypos, betatime, gmult)
+	#temp = betaevent(flagbeta, xpos, ypos, betatime, gmult)
+	betaarr=[flagbeta, xpos, ypos, betatime, gmult]
+	
 	#if gmult == 0:
 	#	return temp
 	#else:
 	#	arr = [temp, gammas]
 	#	return arr
-	return temp	
+	return betaarr, gammas	
 
 def betawrite(fpr, beta, Clover):
 	'''
