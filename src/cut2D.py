@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+mpl.use('GTK3Agg')
 
 class cut2D:
 	'''
@@ -142,13 +144,29 @@ class cut2D:
 if __name__ == "__main__":
 	import numpy as np
 	import sys
+	from projmod import clarion
+	from matplotlib.colors import LogNorm
 
+	matfile=sys.argv[1]
+	ydim = int(sys.argv[2])
+	xdim = int(sys.argv[3])
+	xlow = int(sys.argv[4])
+	xup = int(sys.argv[5])
+	ylow = int(sys.argv[6])
+	yup = int(sys.argv[7])
+	filetrp = clarion(matfile,ydim,xdim,0,xdim-1,0,ydim-1)
+	ytrp = filetrp.readparse()
 	fig,ax=plt.subplots()
-	ax.plot(np.arange(0,4096,1),np.arange(0,4096,1))
-	banfile=sys.argv[1]	
-	banid=int(sys.argv[2])
+	ax.imshow(ytrp,cmap='gist_ncar',origin ='lower',extent=[0,xdim-1,0,ydim-1],aspect='auto',norm=LogNorm())
+	ax.set_xlim(xlow,xup)
+	ax.set_ylim(ylow,yup)
 
-	p=cut2D(ax,bangate=banfile)
+	#fig,ax=plt.subplots()
+	#ax.plot(np.arange(0,4096,1),np.arange(0,4096,1))
+	#banfile=sys.argv[1]	
+	#banid=int(sys.argv[2])
+
+	p=cut2D(ax)
 	p.connect()
-	p.cutfile(banid)
+	#p.cutfile(banid)
 	plt.show()

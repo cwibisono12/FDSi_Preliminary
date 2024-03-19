@@ -38,67 +38,67 @@ def Decay(pxi16obj):
 		if pxi16obj[i].iddet == 245: #DB3PPAC Anode Down
 			t1 = t1+1
 			pxi16objtime=pxi16obj[i].ctimef
-			t1time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+			#t1time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 			#t1time = pxi16obj[i].time
 			if pxi16objtime == 1:
-				t1time = t1time*8
+				t1time = pxi16obj[i].time*8
 			else:
-				t1time = t1time*4			
+				t1time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4		
 				Eleft=pxi16obj[i].energy
 					
 		if pxi16obj[i].iddet == 232: #Cross Scint T2
 			t2 = t2+1
 			pxi16objtime = pxi16obj[i].ctimef
-			t2time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+			#t2time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 			#t2time = pxi16obj[i].time
 			if pxi16objtime == 1:
-				t2time = t2time*8
+				t2time = pxi16obj[i].time*8
 			else:
-				t2time = t2time*4
+				t2time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4
 
 		
 		if pxi16obj[i].iddet >= 212 and pxi16obj[i].iddet <= 215:
 			if pxi16obj[i].iddet == 212:
 				ah1 = ah1 + 1
 				th1 = pxi16obj[i].ctimef
-				th1time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+				#th1time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 				if th1 == 1:
-					th1time = th1time * 8
+					th1time = pxi16obj[i].time*8
 				else:
-					th1time = th1time * 4
+					th1time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4
 				enah1.append(pxi16obj[i].energy)
 				timeah1.append(th1time)
 
 			if pxi16obj[i].iddet == 213:
 				ah2 = ah2 + 1
 				th2 = pxi16obj[i].ctimef
-				th2time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+				#th2time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 				if th2 == 1:
-					th2time = th2time * 8
+					th2time = pxi16obj[i].time*8
 				else:
-					th2time = th2time * 4
+					th2time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4
 				enah2.append(pxi16obj[i].energy)
 				timeah2.append(th2time)
 
 			if pxi16obj[i].iddet == 214:
 				ah3 = ah3 + 1
 				th3 = pxi16obj[i].ctimef
-				th3time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+				#th3time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 				if th3 == 1:
-					th3time = th3time * 8
+					th3time = pxi16obj[i].time*8
 				else:
-					th3time = th3time * 4
+					th3time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4
 				enah3.append(pxi16obj[i].energy)
 				timeah3.append(th3time)
 
 			if pxi16obj[i].iddet == 215:
 				ah4 = ah4 + 1
 				th4 = pxi16obj[i].ctimef
-				th4time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+				#th4time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 				if th4 == 1:
-					th4time = th4time * 8
+					th4time = pxi16obj[i].time*8
 				else:
-					th4time = th4time * 4
+					th4time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4
 				enah4.append(pxi16obj[i].energy)
 				timeah4.append(th4time)
 		
@@ -108,7 +108,7 @@ def Decay(pxi16obj):
 		if pxi16obj[i].iddet == 230: #rear veto
 			fvetorear = 1
 
-	if (t1 == 0) and t2 == 0 and dE == 0 and (ah1 >= 1 and ah2 >= 1 and ah3 >= 1 and ah4 >= 1) and (fvetofront == 1 or fvetorear == 1):
+	if (t1 == 0) and t2 == 0 and dE == 0 and (ah1 >= 1 and ah2 >= 1 and ah3 >= 1 and ah4 >= 1) and (fvetofront == 0 and fvetorear == 0):
 		#deltatime=(t1time-t2time)
 				
 		#deltatime=(deltatime)*10 - 2000

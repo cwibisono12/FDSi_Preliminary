@@ -103,6 +103,7 @@ if __name__ == "__main__":
 	filecorr = sys.argv[1]
 	implants = 0
 	betas = 0
+	evnum = 0
 	with open(filecorr, mode ='rb') as f:
 		while(1):
 			result = buildcorr(f, timecorr = 150000000)
@@ -111,12 +112,13 @@ if __name__ == "__main__":
 			else:
 				mult=len(result)
 				identifier = 0
+				evnum = evnum + 1
 				for i in range(mult):
 					if result[i][0] == 1: #imevent
 						implants = implants + 1
-						print("mult:", mult, "implant:", result[i][1], "(x,y):", result[i][4], result[i][5], "imtime:", result[i][6],"gmult:",result[i][7])
+						print("evnum",evnum,"mult:", mult, "implant:", result[i][1], "(x,y):", result[i][4], result[i][5], "imtime:", result[i][6],"gmult:",result[i][7])
 					else:
 						betas = betas + 1
-						print("mult:" ,mult, "betastime:", result[i][3], "(x, y):", result[i][1],result[i][2],"gmult:", result[i][4])					
+						print("evnum",evnum,"mult:" ,mult, "betastime:", result[i][3], "(x, y):", result[i][1],result[i][2],"gmult:", result[i][4])					
 			
-	print("implants#:",implants,"betas#:",betas,"total#:",implants + betas)
+	print("implants#:",implants,"betas#:",betas,"total#:",implants + betas,"total sub events:",evnum)

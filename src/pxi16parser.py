@@ -243,13 +243,17 @@ def nsclpxi16evread(fpr):
 		cfd_source= (buff3int & 0x40000000) >> 30
 		cfdtimetemp = (buff3int & 0x3FFF0000) >> 16
 		cfdtimetemp2 = cfdtimetemp & 0x3FFF
+		#cfdtimetemp2 = cfdtimetemp & 0x7FFF
 		if cfd_forced == 0:
 			if cfd_source == 1:
-				ctime=(cfdtimetemp2- 16384*1)/2
+				#time = time*2 - 1+ cfdtimetemp2/(2*16384)
+				ctime = cfdtimetemp2/16384 - 1
 			else:
-				ctime=(cfdtimetemp2 - 0)/2
+				#time = time*2 + cfdtimetemp2/(2*16384)
+				ctime = cfdtimetemp2/16384 
 		else:
 			ctime = 0
+			#time = time
 		
 		ctimef= (buff3int & 0x80000000) >> 31
 		buff4=fpr.read(4)

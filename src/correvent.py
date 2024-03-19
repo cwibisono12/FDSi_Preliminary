@@ -2,27 +2,6 @@
 from struct import *
 from dataclasses import dataclass
 
-'''
-@dataclass
-class imevent:
-	imflag: int
-	imID: int
-	dE: int
-	TOF: int
-	x: int
-	y: int
-	imtime: int
-	gmult: int	
-
-@dataclass
-class betaevent:
-	betaflag: int
-	x: int
-	y: int
-	betatime: int
-	gmult: int
-
-'''
 
 def imwrite(fpr, implant, impID, Clover):
 	'''

@@ -36,67 +36,67 @@ def Implant(pxi16obj):
 		if pxi16obj[i].iddet == 245: #DB3PPAC Anode Down
 			t1 = t1+1
 			pxi16objtime=pxi16obj[i].ctimef
-			t1time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+			#t1time = pxi16obj[i].time + pxi16obj[i].ctime
 			#t1time = pxi16obj[i].time
 			if pxi16objtime == 1:
-				t1time = t1time*8
+				t1time = pxi16obj[i].time*8
 			else:
-				t1time = t1time*4			
+				t1time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4			
 				Eleft=pxi16obj[i].energy
 					
 		if pxi16obj[i].iddet == 232: #Cross Scint T2
 			t2 = t2+1
 			pxi16objtime = pxi16obj[i].ctimef
-			t2time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+			#t2time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 			#t2time = pxi16obj[i].time
 			if pxi16objtime == 1:
-				t2time = t2time*8
+				t2time = pxi16obj[i].time*8 
 			else:
-				t2time = t2time*4
+				t2time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4
 
 		
 		if pxi16obj[i].iddet >= 216 and pxi16obj[i].iddet <= 219:
 			if pxi16obj[i].iddet == 216:
 				al1 = al1 + 1
 				tl1objtime = pxi16obj[i].ctimef
-				tl1time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+				#tl1time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 				if tl1objtime == 1:
-					tl1time = tl1time * 8
+					tl1time = pxi16obj[i].time*8
 				else:
-					tl1time = tl1time * 4
+					tl1time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4
 				enal1.append(pxi16obj[i].energy)
 				tl1.append(tl1time)
 
 			if pxi16obj[i].iddet == 217:
 				al2 = al2 + 1
 				tl2objtime = pxi16obj[i].ctimef
-				tl2time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+				#tl2time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 				if tl2objtime == 1:
-					tl2time = tl2time * 8
+					tl2time = pxi16obj[i].time*8
 				else:
-					tl2time = tl2time * 4
+					tl2time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4
 				enal2.append(pxi16obj[i].energy)
 				tl2.append(tl2time)
 
 			if pxi16obj[i].iddet == 218:
 				al3 = al3 + 1
 				tl3objtime = pxi16obj[i].ctimef
-				tl3time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+				#tl3time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 				if tl3objtime == 1:
-					tl3time = tl3time * 8
+					tl3time = pxi16obj[i].time*8 
 				else:
-					tl3time = tl3time * 4
+					tl3time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4
 				enal3.append(pxi16obj[i].energy)
 				tl3.append(tl3time)
 
 			if pxi16obj[i].iddet == 219:
 				al4 = al4 + 1
 				tl4objtime = pxi16obj[i].ctimef
-				tl4time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
+				#tl4time = pxi16obj[i].time + (pxi16obj[i].ctime/16384)
 				if tl4objtime == 1:
-					tl4time = tl4time * 8
+					tl4time = pxi16obj[i].time*8
 				else:
-					tl4time = tl4time * 4
+					tl4time = pxi16obj[i].time*8 + pxi16obj[i].ctime*4
 				enal4.append(pxi16obj[i].energy)
 				tl4.append(tl4time)
 		
@@ -104,9 +104,9 @@ def Implant(pxi16obj):
 			fdynode = 1		
 
 	if (t1 >= 1) and t2 >= 1 and dE >= 1 and (al1 >= 1 and al2 >= 1 and al3 >= 1 and al4 >= 1) and fdynode == 1:
-		deltatime=(t1time-t2time)
+		deltatime=(t1time-t2time)*10 - 7000
 				
-		deltatime=(deltatime)*10 - 2000
+		deltatime=(deltatime)
 		#print("sevtmult:",sevtmult,"iddet:",pxi16obj[i].iddet,"t1time:",t1time,"t2time:",t2time,"tdiff:",deltatime,"energy:",Energy,"Eleft:",Eleft)
 		
 		maxenal1 = max(enal1)
