@@ -1,3 +1,1 @@
-This is a Prototype of FDSi Data Processing aimed only for preliminary analysis. All modules are written fully in Python and some example of plots and how to use modules inside src/ directory can be found at src/masterplot.py
-
-The modules would process the raw .evt file data coming from NSCL/FRIB DAQ. 
+This is a Prototype of FDSi Data Processing. All modules are written fully in Python. The modules would process the raw .evt file data coming from NSCL/FRIB DAQ. Description about the usage of each modules can be found by loading the module in a user script and calling the docstring method.
